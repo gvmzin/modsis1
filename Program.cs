@@ -1,41 +1,50 @@
 ﻿using System;
 
-Console.Write("Digite as vendas do mês 1: ") ;
-int m1 ;
-if (int.TryParse(Console.ReadLine(), out m1)) ;
-Console.Write("Digite as vendas do mês 2: ");
-int m2 ;
-if (int.TryParse(Console.ReadLine(), out m2)) ;
-Console.Write("Digite as vendas do mês 3: ");
-int m3 ;
-if (int.TryParse(Console.ReadLine(), out m3)) ;
-
-int vmd = ((m1 + m2 + m3) / 3) / 25;
-
-Console.Write("Digite o TR: ") ;
-int tr ;
-if (int.TryParse(Console.ReadLine(), out tr)) ;
-
-int emin = tr * vmd;
-
-Console.Write("Digite o LR ");
-int lr;
-if (int.TryParse(Console.ReadLine(), out lr)) ;
-
-int emax = lr + emin;
-
-Console.Write("Digite o EA ");
-int ea;
-if (int.TryParse(Console.ReadLine(), out ea))
+class Program
 {
-    if (ea > emin)
+    static int LerVendas(string mensagem)
     {
-        Console.WriteLine("Não há necessidade de comprar");
-        Console.WriteLine($"A venda média diária foi {vmd}, o estoque mínimo foi {emin}, o estoque máximo foi {emax}.");
+        int vendas;
+        Console.Write(mensagem);
+        while (!int.TryParse(Console.ReadLine(), out vendas))
+        {
+            Console.WriteLine("Entrada inválida. Por favor, insira um número válido.");
+            Console.Write(mensagem);
+        }
+        return vendas;
     }
-    else
+
+    static void Main()
     {
-        Console.WriteLine("Não há necessidade de comprar");
+        // Entrada dos valores de vendas
+        int m1 = LerVendas("Digite as vendas do mês 1: ");
+        int m2 = LerVendas("Digite as vendas do mês 2: ");
+        int m3 = LerVendas("Digite as vendas do mês 3: ");
+
+        // Cálculo da venda média diária
+        int vmd = ((m1 + m2 + m3) / 3) / 25;
+
+        // Entrada do TR e cálculo do estoque mínimo
+        int tr = LerVendas("Digite o TR: ");
+        int emin = tr * vmd;
+
+        // Entrada do LR e cálculo do estoque máximo
+        int lr = LerVendas("Digite o LR: ");
+        int emax = lr + emin;
+
+        // Entrada do EA e lógica de compra
+        int ea = LerVendas("Digite o EA: ");
+
+        if (ea > emin)
+        {
+            Console.WriteLine("Não há necessidade de comprar");
+        }
+        else
+        {
+            Console.WriteLine("É necessário comprar");
+        }
+
+        // Exibindo resultados
         Console.WriteLine($"A venda média diária foi {vmd}, o estoque mínimo foi {emin}, o estoque máximo foi {emax}.");
     }
 }
